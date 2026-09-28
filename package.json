@@ -1,0 +1,72 @@
+{
+  "name": "central-ia-whatsapp",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@10.9.0",
+  "engines": {
+    "node": ">=20.18.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "prisma:push": "prisma db push",
+    "prisma:seed": "prisma db seed",
+    "setup:local": "powershell -ExecutionPolicy Bypass -File scripts/bootstrap-local.ps1",
+    "conversations:dedupe": "tsx scripts/dedupe-conversations.ts",
+    "conversations:backfill-aliases": "tsx scripts/backfill-conversation-aliases.ts",
+    "conversations:backfill-last-customer": "tsx scripts/backfill-last-customer-message-at.ts",
+    "worker:outbound": "tsx scripts/process-outbound-messages.ts",
+    "worker:outbound:once": "tsx scripts/process-outbound-messages.ts --once",
+    "worker:inbound": "tsx scripts/process-inbound-events.ts",
+    "worker:inbound:once": "tsx scripts/process-inbound-events.ts --once",
+    "worker:summary": "tsx scripts/process-conversation-summaries.ts",
+    "worker:summary:once": "tsx scripts/process-conversation-summaries.ts --once",
+    "worker:whatsapp": "tsx scripts/run-whatsapp-worker.ts",
+    "retention:cleanup": "tsx scripts/retention-cleanup.ts",
+    "users:create-company-logins": "tsx scripts/create-company-login-users.ts",
+    "users:create-platform-admin": "tsx scripts/create-platform-admin.ts",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^2.1.1",
+    "@prisma/client": "^6.19.0",
+    "@tanstack/react-query": "^5.101.2",
+    "@whiskeysockets/baileys": "^7.0.0-rc13",
+    "bufferutil": "^4.1.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^1.24.0",
+    "next": "16.2.10",
+    "openai": "^6.45.0",
+    "pdf-parse": "^2.4.5",
+    "pino": "^10.3.1",
+    "prisma": "^6.19.0",
+    "qrcode": "^1.5.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "utf-8-validate": "^6.0.6",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.10",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.0",
+    "typescript": "^5"
+  }
+}
